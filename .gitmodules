@@ -1,3 +1,6 @@
 [submodule "src/pentagine"]
 	path = src/pentagine
 	url = git://github.com/davidgomes/pentagine.git
+[submodule "js/pentagine"]
+	path = js/pentagine
+	url = git://github.com/davidgomes/pentagine.git
