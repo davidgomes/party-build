@@ -1,0 +1,16 @@
+{
+  "name": "Party Build",
+  "description": "Just build some towers",
+  "launch_path": "/index.html",
+
+  "icons": {
+    "60": "/assets/img/danicon.png"
+  },
+
+  "developer": {
+    "name": "David Gomes",
+    "url": "http://munchor.tumblr.com"
+  },
+
+  "default_locale": "en"
+}

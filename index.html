@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Party Build</title>
+
+    <style media="screen" type="text/css">
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #canvas {
+        position: absolute;
+      }
+    </style>
+
+    <!-- <meta charset="utf-8" content="width=device-width, initial-scale=1.0"> -->
+    <meta charset="utf-8" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+  </head>
+
+  <body>
+    <canvas id="canvas">
+      Your browser needs to support canvas to play this game!
+    </canvas>
+
+    <!-- Include libraries -->
+    <script type="text/javascript" src="js/pentagine/build/pentagine.js"></script>
+    <script type="text/javascript" src="js/cp.min.js"></script>
+
+    <!-- Include game classes -->
+    <script type="text/javascript" src="js/MenuState.js"></script>
+    <script type="text/javascript" src="js/Block.js"></script>
+    <script type="text/javascript" src="js/Constants.js"></script>
+    <script type="text/javascript" src="js/Utils.js"></script>
+    <script type="text/javascript" src="js/ScoreState.js"></script>
+    <script type="text/javascript" src="js/PlayState.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
