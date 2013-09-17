@@ -260,17 +260,17 @@ function PlayState() {
   this.draw = function() {
     clearCanvas();
 
-    currentFont = "15px Arial";
-    currentScore = this.blocks.length;
-    drawString(currentScore.toString(), 5, 15, "#FFF", "left");
-    drawString(highScore.toString(), context.width - 5, 15, "#FFF", "right");
+    this.background.draw();
+    this.clouds.draw();
+    this.blockss.draw();
 
     if (this.hintBlock) {
       this.hintBlock.draw();
     }
-
-    this.blockss.draw();
-    this.clouds.draw();
-    this.background.draw();
+    
+    currentFont = "15px Arial";
+    currentScore = this.blocks.length;
+    drawString(currentScore.toString(), 5, 15, "#FFF", "left");
+    drawString(highScore.toString(), context.width - 5, 15, "#FFF", "right");
   };
 }
