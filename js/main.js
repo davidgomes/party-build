@@ -4,7 +4,7 @@ var currentScore = 0;
 
 localStorage.clear();
 
-if (typeof localStorage["highScore"] == "undefined") {
+if (!localStorage["highScore"]) {
   localStorage["highScore"] = "0";
   highScore = 0;
 } else {
@@ -36,9 +36,11 @@ for (var i = 0; i < audio_paths.length; i++) {
 
 /* Disable finger swipe scrolling on mobile devices */
 document.ontouchmove = function(e) {
-  e.preventDefault()
+  e.preventDefault();
 };
 
 /* Start the title screen */
-desiredFPS = 60;
-switchState(new MenuState());
+penta.setup({ width: document.documentElement.clientWidth,
+              height: document.documentElement.clientHeight,
+              desiredFPS: 60,
+              firstState: new MenuState() });

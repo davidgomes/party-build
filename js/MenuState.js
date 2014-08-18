@@ -5,28 +5,27 @@ var mode;
 /* Title screen menu state, sets up the network link */
 function MenuState() {
   this.setup = function() {
-    preventKeys("down", "right", "left", "right", "space");
-    this.background = new Sprite("assets/img/bg.png", -8, 0);
+    this.background = new penta.Sprite("assets/img/bg.png", 0, 0);
     this.background.y = -1590 + 480 + 10;
-    this.title = new Sprite("assets/img/title.png", context.width / 2 - 308 / 2, 100);
+    this.title = new penta.Sprite("assets/img/title.png", penta.context.width / 2 - 308 / 2, 100);
     this.receivedMouseDown = false;
   };
 
   this.update = function() {
-    if (isMouseDown("left")) {
+    if (penta.isMouseDown("left")) {
       this.receivedMouseDown = true;
     } else {
       if (this.receivedMouseDown) {
-        switchState(new PlayState());
+        penta.switchState(new PlayState());
       }
     }
   };
 
   this.draw = function() {
-    clearCanvas();
+    penta.clearCanvas();
 
-    currentFont = "Bold 20px Arial";
-    drawString("Touch anywhere to play", context.width / 2, 360, "#FFF", "center");
+    penta.currentFont = "Bold 20px Arial";
+    penta.drawString("Touch anywhere to play", penta.context.width / 2, 360, "#FFF", "center");
 
     this.title.draw();
     this.background.draw();
