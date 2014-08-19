@@ -3,8 +3,8 @@
 function PlayState() {
   this.setup = function() {
     this.blocks = [];
-    this.blockss = new SpriteList();
-    this.clouds = new SpriteList();
+    this.blockss = new penta.SpriteList();
+    this.clouds = new penta.SpriteList();
     this.towerHeight = 0;
 
     this.accumulator = 0;
@@ -35,7 +35,7 @@ function PlayState() {
             (arb.a.name == "base" && arb.b.name == "block") ||
             (arb.a.name == "block" && arb.b.name == "base")) {
           var my = Math.min(arb.a.body.p.y, arb.b.body.p.y);
-          space.game.towerHeight = Math.max(space.game.towerHeight, (context.height - 30) - my);
+          space.game.towerHeight = Math.max(space.game.towerHeight, (penta.context.height - 30) - my);
 
           var soundBlock = arb.a.block;
 
@@ -64,7 +64,7 @@ function PlayState() {
 
         if (arb.a == space.game.ground || arb.b == space.game.ground) {
           if (arb.b.name == "block" || arb.a.name == "block") {
-            switchState(new ScoreState());
+            penta.switchState(new ScoreState());
             return true;
           }
         }
@@ -76,21 +76,27 @@ function PlayState() {
     }, null, null);
 
     this.ground = new cp.SegmentShape(this.space.staticBody,
-                                      new cp.Vect(-2000, context.height), new cp.Vect(2000, context.height), 0);
+                                      new cp.Vect(-2000, penta.context.height),
+                                      new cp.Vect(2000, penta.context.height), 0);
     this.ground.name = "ground";
     this.space.addShape(this.ground);
-    this.base = new Block(context.width / 2 - 180 / 2, context.height - 40, 180, 30, 0);
+    this.base = new Block(penta.context.width / 2 - 180 / 2, penta.context.height - 40, 180, 30, 0);
     this.addBlock(this.base);
     this.base.shape.name = "base";
     this.base.playedSfx = true;
     this.ground.setElasticity(0);
     this.ground.setFriction(1);
 
-    this.background = new Sprite("assets/img/bg.png", -2, 0);
+    this.background = new penta.Sprite("assets/img/bg.png", -2, 0);
     this.background.y = -1590 + 480 + 10;
 
-    this.hintBlock = new Sprite(null, 0, 0);
-    this.hintBlock.alpha = 0.5;
+    this.hintBlock = { x: 0, y: 0, alpha: 0.5, width: 0, height: 0,
+
+                       draw: function () {
+                         penta.drawRectangle(this.x, this.y,
+                                             this.width, this.height,
+                                             'gray');
+    } };
 
     this.canPlaceBlock = true;
     this.receivedMouseDown = false;
@@ -103,7 +109,7 @@ function PlayState() {
     var possibleColors = ["red", "blue", "green", "pink", "gray", "blue"];
     this.color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
 
-    preventKeys("down", "right", "left", "right", "space", "r");
+    // preventKeys("down", "right", "left", "right", "space", "r");
   };
 
   this.addBlock = function(block) {
@@ -126,11 +132,11 @@ function PlayState() {
     var numberOfBlocksAboveCameraLine = 0;
 
     for (var i = this.blockss.sprites.length - 1; i >= 0; i--) {
-      if (this.blockss.sprites[i].y - this.camera.y < context.height / 2) {
+      if (this.blockss.sprites[i].y - this.camera.y < penta.context.height / 2) {
         numberOfBlocksAboveCameraLine++;
 
         if (numberOfBlocksAboveCameraLine > 2) {
-          this.camera.y -= context.height * this.dt;
+          this.camera.y -= penta.context.height * this.dt;
           break;
         }
       }
@@ -150,23 +156,25 @@ function PlayState() {
       block.sprite.y = block.body.p.y - block.height / 2;
       block.sprite.angle = block.body.a * radToDeg;
     }
-
+    
     /* Handle hint block */
     if (this.hintBlock.nextBlock != this.nextBlock) {
-      this.hintBlock.makeGraphic(this.nextBlock.width, this.nextBlock.height, "gray");
+      // this.hintBlock.makeGraphic(this.nextBlock.width, this.nextBlock.height, "gray");
+      this.hintBlock.width = this.nextBlock.width;
+      this.hintBlock.height = this.nextBlock.height;
       this.hintBlock.nextBlock = this.nextBlock;
     }
 
-    this.hintBlock.x = mouseX - this.nextBlock.width / 2;
-    this.hintBlock.y = mouseY - this.nextBlock.height / 2;
+    this.hintBlock.x = penta.mouse.x - this.nextBlock.width / 2;
+    this.hintBlock.y = penta.mouse.y - this.nextBlock.height / 2;
 
     /* Add new blocks */
-    if (isMouseDown("left") && this.canPlaceBlock) {
+    if (penta.isMouseDown("left") && this.canPlaceBlock) {
       var hw = this.nextBlock.width / 2;
       var hh = this.nextBlock.height / 2;
       var shape = cp.BoxShape2(this.space.staticBody,
-                               new cp.BB(-hw + mouseX, -hh + mouseY,
-                                         hw + mouseX, hh + mouseY));
+                               new cp.BB(-hw + penta.mouse.x, -hh + penta.mouse.y,
+                                         hw + penta.mouse.x, hh + penta.mouse.y));
       shape.sensor = true;
       var colliding = false;
 
@@ -174,7 +182,7 @@ function PlayState() {
         colliding = true;
       });
 
-      colliding = colliding || (mouseY + this.nextBlock.height / 2 > canvas.height);
+      colliding = colliding || (penta.mouse.y + this.nextBlock.height / 2 > canvas.height);
 
       if (!colliding) {
         this.receivedMouseDown = true;
@@ -190,8 +198,8 @@ function PlayState() {
         var hw = this.nextBlock.width / 2;
         var hh = this.nextBlock.height / 2;
         var shape = cp.BoxShape2(this.space.staticBody,
-                                 new cp.BB(-hw + mouseX, -hh + mouseY,
-                                           hw + mouseX, hh + mouseY));
+                                 new cp.BB(-hw + penta.mouse.x, -hh + penta.mouse.y,
+                                           hw + penta.mouse.x, hh + penta.mouse.y));
         shape.sensor = true;
         var colliding = false;
         this.space.shapeQuery(shape, function(a, set) {
@@ -200,10 +208,10 @@ function PlayState() {
 
         this.hintBlock.lastShape = shape;
 
-        var blockPos = {x: mouseX - this.nextBlock.width / 2,
-                        y: mouseY - this.nextBlock.height / 2};
+        var blockPos = { x: penta.mouse.x - this.nextBlock.width / 2,
+                         y: penta.mouse.y - this.nextBlock.height / 2 };
 
-        colliding = colliding || (mouseY + this.nextBlock.height / 2 > canvas.height - 30);
+        colliding = colliding || (penta.mouse.y + this.nextBlock.height / 2 > canvas.height - 30);
 
         if (!colliding) {
           var newBlock = new Block(blockPos.x, blockPos.y,
@@ -239,14 +247,14 @@ function PlayState() {
       var cloud = this.clouds.sprites[i];
       cloud.x += cloud.speed * this.dt;
 
-      if (cloud.x < - 70 || cloud.x > (context.width + 70)) {
+      if (cloud.x < - 70 || cloud.x > (penta.context.width + 70)) {
         this.clouds.remove(cloud);
       }
     }
 
     if (!getRandomInt(0, 60 * 10)) {
-      var x = (getRandomInt(0, 1) * (context.width + 70)) - 70;
-      var cloud = new Sprite("assets/img/cloud1.png", x, getRandomInt(0, context.height - 400));
+      var x = (getRandomInt(0, 1) * (penta.context.width + 70)) - 70;
+      var cloud = new penta.Sprite("assets/img/cloud1.png", x, getRandomInt(0, penta.context.height - 400));
       cloud.speed = getRandomInt(20, 60);
 
       if (x > 0) {
@@ -258,19 +266,19 @@ function PlayState() {
   };
 
   this.draw = function() {
-    clearCanvas();
+    penta.clearCanvas();
 
-    this.background.draw();
+    // this.background.draw();
     this.clouds.draw();
     this.blockss.draw();
 
     if (this.hintBlock) {
       this.hintBlock.draw();
     }
-    
-    currentFont = "15px Arial";
-    currentScore = this.blocks.length;
-    drawString(currentScore.toString(), 5, 15, "#FFF", "left");
-    drawString(highScore.toString(), context.width - 5, 15, "#FFF", "right");
+
+    penta.currentFont = "15px Arial";
+    penta.currentScore = this.blocks.length;
+    penta.drawString(currentScore.toString(), 5, 15, "#FFF", "left");
+    penta.drawString(highScore.toString(), penta.context.width - 5, 15, "#FFF", "right");
   };
 }

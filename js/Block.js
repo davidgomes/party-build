@@ -5,7 +5,7 @@ var blockTypes = ["assets/img/block_lattice.png",
 /* Basic construction piece */
 Block = (function () {
   function constructor(x, y, width, height, type) {
-    this.sprite = new Sprite(null, x, y);
+    this.sprite = new penta.Sprite(null, x, y);
 
     if (type == null) {
       type = getRandomInt(0, blockTypes.length - 1);
