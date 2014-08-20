@@ -93,9 +93,14 @@ function PlayState() {
     this.hintBlock = { x: 0, y: 0, alpha: 0.5, width: 0, height: 0,
 
                        draw: function () {
+                         penta.context.save();
+                         penta.context.globalAlpha = 0.5;
+                         
                          penta.drawRectangle(this.x, this.y,
                                              this.width, this.height,
                                              'gray');
+
+                         penta.context.restore();
     } };
 
     this.canPlaceBlock = true;
@@ -274,7 +279,7 @@ function PlayState() {
     this.clouds.draw();
     this.blockss.draw();
 
-    if (this.hintBlock) {
+    if (this.hintBlock && penta.isMouseDown('left') && this.canPlaceBlock) {
       this.hintBlock.draw();
     }
 
