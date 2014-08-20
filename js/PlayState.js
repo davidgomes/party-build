@@ -95,13 +95,13 @@ function PlayState() {
                        draw: function () {
                          penta.context.save();
                          penta.context.globalAlpha = 0.5;
-                         
+
                          penta.drawRectangle(this.x, this.y,
                                              this.width, this.height,
                                              'gray');
 
                          penta.context.restore();
-    } };
+                       } };
 
     this.canPlaceBlock = true;
     this.receivedMouseDown = false;
@@ -161,7 +161,7 @@ function PlayState() {
       block.sprite.y = block.body.p.y - block.height / 2;
       block.sprite.angle = block.body.a * radToDeg;
     }
-    
+
     /* Handle hint block */
     if (this.hintBlock.nextBlock != this.nextBlock) {
       // this.hintBlock.makeGraphic(this.nextBlock.width, this.nextBlock.height, 'gray');
