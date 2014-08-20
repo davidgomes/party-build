@@ -1,7 +1,5 @@
 function ScoreState() {
   this.setup = function () {
-    this.background = new penta.Sprite('assets/img/bg.png', -2, 0);
-    this.background.y = -1590 + 480 + 10;
     this.receivedMouseDown = false;
 
     /* Handle high score */
@@ -22,12 +20,12 @@ function ScoreState() {
   };
 
   this.draw = function () {
-    penta.clearCanvas();
+    penta.clearCanvas('#81d9ec');
 
     penta.currentFont = 'Bold 40px Arial';
     penta.drawString('Score', penta.context.width / 2, 150, '#FFF', 'center');
 
-    currentFont = '30px Arial';
+    penta.currentFont = '30px Arial';
     if (currentScore == highScore) {
       penta.drawString(currentScore.toString(), penta.context.width / 2, 190, '#F00', 'center');
     } else {
@@ -39,7 +37,5 @@ function ScoreState() {
 
     penta.currentFont = '30px Arial';
     penta.drawString(highScore.toString(), penta.context.width / 2, 320, '#FFF', 'center');
-
-    // this.background.draw();
   };
 }

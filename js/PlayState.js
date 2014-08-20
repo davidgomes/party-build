@@ -87,9 +87,6 @@ function PlayState() {
     this.ground.setElasticity(0);
     this.ground.setFriction(1);
 
-    this.background = new penta.Sprite('assets/img/bg.png', -2, 0);
-    this.background.y = -1590 + 480 + 10;
-
     this.hintBlock = { x: 0, y: 0, alpha: 0.5, width: 0, height: 0,
 
                        draw: function () {
@@ -172,6 +169,11 @@ function PlayState() {
 
     this.hintBlock.x = penta.mouse.x - this.nextBlock.width / 2;
     this.hintBlock.y = penta.mouse.y - this.nextBlock.height / 2 - this.camera.y;
+
+    /* Update camera position */
+    if (penta.isMouseDown('left')) {
+      // if (
+    }
 
     /* Add new blocks */
     if (penta.isMouseDown('left') && this.canPlaceBlock) {
@@ -269,13 +271,12 @@ function PlayState() {
       this.clouds.push(cloud);
     }
 
-    currentScore = this.blocks.length - 1;
+    currentScore = this.blocks.length - 1; // Update score
   };
 
   this.draw = function () {
-    penta.clearCanvas();
+    penta.clearCanvas('#81d9ec');
 
-    // this.background.draw();
     this.clouds.draw();
     this.blockss.draw();
 
@@ -283,8 +284,8 @@ function PlayState() {
       this.hintBlock.draw();
     }
 
-    penta.currentFont = '15px Arial';
-    penta.drawString(currentScore.toString(), 5, 15, '#FFF', 'left');
+    penta.currentFont = '25px Arial';
+    penta.drawString(currentScore.toString(), 15, 15, '#FFF', 'left');
     penta.drawString(highScore.toString(), penta.context.width - 5, 15, '#FFF', 'right');
   };
 }
