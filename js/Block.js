@@ -1,6 +1,6 @@
-var blockTypes = ["assets/img/block_lattice.png",
-                  "assets/img/block_brick.png",
-                  "assets/img/block_wood.png"];
+var blockTypes = ['assets/img/block_lattice.png',
+                  'assets/img/block_brick.png',
+                  'assets/img/block_wood.png'];
 
 /* Basic construction piece */
 Block = (function () {

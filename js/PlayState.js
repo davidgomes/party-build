@@ -17,7 +17,7 @@ function PlayState() {
 
     /* Sound */
     var cha = new Audio();
-    var canPlayOgg = !!cha.canPlayType && cha.canPlayType('audio/ogg; codecs='vorbis'') != '';
+    var canPlayOgg = !!cha.canPlayType && cha.canPlayType('audio/ogg; codecs="vorbis"') != '';
     var lpath = 'assets/sfx/test_loop.ogg';
 
     if (!canPlayOgg) {
@@ -272,7 +272,7 @@ function PlayState() {
     currentScore = this.blocks.length - 1;
   };
 
-  this.draw = function() {
+  this.draw = function () {
     penta.clearCanvas();
 
     // this.background.draw();

@@ -4,7 +4,7 @@ var mode;
 
 /* Title screen menu state, sets up the network link */
 function MenuState() {
-  this.setup = function() {
+  this.setup = function () {
     this.background = new penta.Sprite('assets/img/bg.png', 0, 0);
     this.background.y = -1590 + 480 + 10;
     this.title = new penta.Sprite('assets/img/title.png', penta.context.width / 2 - 308 / 2, 100);
@@ -21,7 +21,7 @@ function MenuState() {
     }
   };
 
-  this.draw = function() {
+  this.draw = function () {
     penta.clearCanvas();
 
     penta.currentFont = 'Bold 20px Arial';
