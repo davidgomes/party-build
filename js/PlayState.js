@@ -171,7 +171,7 @@ function PlayState() {
     }
 
     this.hintBlock.x = penta.mouse.x - this.nextBlock.width / 2;
-    this.hintBlock.y = penta.mouse.y - this.nextBlock.height / 2;
+    this.hintBlock.y = penta.mouse.y - this.nextBlock.height / 2 - this.camera.y;
 
     /* Add new blocks */
     if (penta.isMouseDown('left') && this.canPlaceBlock) {
