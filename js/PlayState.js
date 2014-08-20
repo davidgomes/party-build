@@ -263,6 +263,8 @@ function PlayState() {
 
       this.clouds.push(cloud);
     }
+
+    currentScore = this.blocks.length - 1;
   };
 
   this.draw = function() {
@@ -277,7 +279,6 @@ function PlayState() {
     }
 
     penta.currentFont = "15px Arial";
-    penta.currentScore = this.blocks.length;
     penta.drawString(currentScore.toString(), 5, 15, "#FFF", "left");
     penta.drawString(highScore.toString(), penta.context.width - 5, 15, "#FFF", "right");
   };
