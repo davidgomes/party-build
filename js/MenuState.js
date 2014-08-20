@@ -9,7 +9,7 @@ function MenuState() {
     this.receivedMouseDown = false;
   };
 
-  this.update = function() {
+  this.update = function () {
     if (penta.isMouseDown('left')) {
       this.receivedMouseDown = true;
     } else {
