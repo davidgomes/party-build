@@ -1,7 +1,7 @@
 /* Main game state */
 
 function PlayState() {
-  this.setup = function() {
+  this.setup = function () {
     this.blocks = [];
     this.blockss = new penta.SpriteList();
     this.clouds = new penta.SpriteList();
@@ -133,7 +133,7 @@ function PlayState() {
     this.blockss.push(block.sprite);
   };
 
-  this.update = function() {
+  this.update = function () {
     var numberOfBlocksAboveCameraLine = 0;
 
     for (var i = this.blockss.sprites.length - 1; i >= 0; i--) {
@@ -224,7 +224,7 @@ function PlayState() {
 
           this.canPlaceBlock = false;
           var playState = this;
-          setTimeout(function() {
+          setTimeout(function () {
             playState.canPlaceBlock = true;
           }, 1000);
 

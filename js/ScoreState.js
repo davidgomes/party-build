@@ -1,5 +1,5 @@
 function ScoreState() {
-  this.setup = function() {
+  this.setup = function () {
     this.background = new penta.Sprite('assets/img/bg.png', -2, 0);
     this.background.y = -1590 + 480 + 10;
     this.receivedMouseDown = false;
@@ -11,7 +11,7 @@ function ScoreState() {
     }
   };
 
-  this.update = function() {
+  this.update = function () {
     if (penta.isMouseDown('left')) {
       this.receivedMouseDown = true;
     } else {
@@ -21,7 +21,7 @@ function ScoreState() {
     }
   };
 
-  this.draw = function() {
+  this.draw = function () {
     penta.clearCanvas();
 
     penta.currentFont = 'Bold 40px Arial';
