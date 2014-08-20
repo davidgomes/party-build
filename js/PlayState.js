@@ -17,11 +17,11 @@ function PlayState() {
 
     /* Sound */
     var cha = new Audio();
-    var canPlayOgg = !!cha.canPlayType && cha.canPlayType('audio/ogg; codecs="vorbis"') != "";
-    var lpath = "assets/sfx/test_loop.ogg";
+    var canPlayOgg = !!cha.canPlayType && cha.canPlayType('audio/ogg; codecs='vorbis'') != '';
+    var lpath = 'assets/sfx/test_loop.ogg';
 
     if (!canPlayOgg) {
-      lpat = "assets/sfx/test_loop.mp3";
+      lpat = 'assets/sfx/test_loop.mp3';
     }
 
     this.bgloop = new Audio(lpath);
@@ -31,15 +31,15 @@ function PlayState() {
 
     this.space.setDefaultCollisionHandler(null, function(arb, space) {
       if (arb) {
-        if ((arb.a.name == "block" && arb.b.name == "block") ||
-            (arb.a.name == "base" && arb.b.name == "block") ||
-            (arb.a.name == "block" && arb.b.name == "base")) {
+        if ((arb.a.name == 'block' && arb.b.name == 'block') ||
+            (arb.a.name == 'base' && arb.b.name == 'block') ||
+            (arb.a.name == 'block' && arb.b.name == 'base')) {
           var my = Math.min(arb.a.body.p.y, arb.b.body.p.y);
           space.game.towerHeight = Math.max(space.game.towerHeight, (penta.context.height - 30) - my);
 
           var soundBlock = arb.a.block;
 
-          if (arb.a.name == "base") {
+          if (arb.a.name == 'base') {
             soundBlock = arb.b.block;
           }
 
@@ -49,13 +49,13 @@ function PlayState() {
 
           if (!soundBlock.playedSfx) {
             if (soundBlock.type == 0) {
-              playSound("assets/sfx/metal_on_metal");
+              playSound('assets/sfx/metal_on_metal');
             } else if (soundBlock.type == 1) {
-              playSound("assets/sfx/brick_on_brick");
+              playSound('assets/sfx/brick_on_brick');
             } else if (soundBlock.type == 2) {
-              playSound("assets/sfx/wood_on_wood");
+              playSound('assets/sfx/wood_on_wood');
             } else {
-              playSound("assets/sfx/wood_on_wood");
+              playSound('assets/sfx/wood_on_wood');
             }
 
             soundBlock.playedSfx = true;
@@ -63,7 +63,7 @@ function PlayState() {
         }
 
         if (arb.a == space.game.ground || arb.b == space.game.ground) {
-          if (arb.b.name == "block" || arb.a.name == "block") {
+          if (arb.b.name == 'block' || arb.a.name == 'block') {
             penta.switchState(new ScoreState());
             return true;
           }
@@ -78,16 +78,16 @@ function PlayState() {
     this.ground = new cp.SegmentShape(this.space.staticBody,
                                       new cp.Vect(-2000, penta.context.height),
                                       new cp.Vect(2000, penta.context.height), 0);
-    this.ground.name = "ground";
+    this.ground.name = 'ground';
     this.space.addShape(this.ground);
     this.base = new Block(penta.context.width / 2 - 180 / 2, penta.context.height - 40, 180, 30, 0);
     this.addBlock(this.base);
-    this.base.shape.name = "base";
+    this.base.shape.name = 'base';
     this.base.playedSfx = true;
     this.ground.setElasticity(0);
     this.ground.setFriction(1);
 
-    this.background = new penta.Sprite("assets/img/bg.png", -2, 0);
+    this.background = new penta.Sprite('assets/img/bg.png', -2, 0);
     this.background.y = -1590 + 480 + 10;
 
     this.hintBlock = { x: 0, y: 0, alpha: 0.5, width: 0, height: 0,
@@ -111,10 +111,10 @@ function PlayState() {
 
     this.blockMap = {};
 
-    var possibleColors = ["red", "blue", "green", "pink", "gray", "blue"];
+    var possibleColors = ['red', 'blue', 'green', 'pink', 'gray', 'blue'];
     this.color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
 
-    // preventKeys("down", "right", "left", "right", "space", "r");
+    // preventKeys('down', 'right', 'left', 'right', 'space', 'r');
   };
 
   this.addBlock = function(block) {
@@ -126,7 +126,7 @@ function PlayState() {
     block.shape = this.space.addShape(new cp.BoxShape(block.body, block.width, block.height));
     block.shape.setElasticity(0);
     block.shape.setFriction(1);
-    block.shape.name = "block";
+    block.shape.name = 'block';
     block.shape.block = block;
 
     this.blocks.push(block);
@@ -164,7 +164,7 @@ function PlayState() {
     
     /* Handle hint block */
     if (this.hintBlock.nextBlock != this.nextBlock) {
-      // this.hintBlock.makeGraphic(this.nextBlock.width, this.nextBlock.height, "gray");
+      // this.hintBlock.makeGraphic(this.nextBlock.width, this.nextBlock.height, 'gray');
       this.hintBlock.width = this.nextBlock.width;
       this.hintBlock.height = this.nextBlock.height;
       this.hintBlock.nextBlock = this.nextBlock;
@@ -174,7 +174,7 @@ function PlayState() {
     this.hintBlock.y = penta.mouse.y - this.nextBlock.height / 2;
 
     /* Add new blocks */
-    if (penta.isMouseDown("left") && this.canPlaceBlock) {
+    if (penta.isMouseDown('left') && this.canPlaceBlock) {
       var hw = this.nextBlock.width / 2;
       var hh = this.nextBlock.height / 2;
       var shape = cp.BoxShape2(this.space.staticBody,
@@ -259,7 +259,7 @@ function PlayState() {
 
     if (!getRandomInt(0, 60 * 10)) {
       var x = (getRandomInt(0, 1) * (penta.context.width + 70)) - 70;
-      var cloud = new penta.Sprite("assets/img/cloud1.png", x, getRandomInt(0, penta.context.height - 400));
+      var cloud = new penta.Sprite('assets/img/cloud1.png', x, getRandomInt(0, penta.context.height - 400));
       cloud.speed = getRandomInt(20, 60);
 
       if (x > 0) {
@@ -283,8 +283,8 @@ function PlayState() {
       this.hintBlock.draw();
     }
 
-    penta.currentFont = "15px Arial";
-    penta.drawString(currentScore.toString(), 5, 15, "#FFF", "left");
-    penta.drawString(highScore.toString(), penta.context.width - 5, 15, "#FFF", "right");
+    penta.currentFont = '15px Arial';
+    penta.drawString(currentScore.toString(), 5, 15, '#FFF', 'left');
+    penta.drawString(highScore.toString(), penta.context.width - 5, 15, '#FFF', 'right');
   };
 }
