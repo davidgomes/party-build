@@ -1,7 +1,3 @@
-/* Keep socket external for reconnection */
-var socket;
-var mode;
-
 /* Title screen menu state, sets up the network link */
 function MenuState() {
   this.setup = function () {
