@@ -2,8 +2,6 @@
 var highScore = 0;
 var currentScore = 0;
 
-localStorage.clear();
-
 if (!localStorage['highScore']) {
   localStorage['highScore'] = '0';
   highScore = 0;
